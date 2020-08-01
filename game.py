@@ -27,13 +27,14 @@ def count_neighbours(matrix, i, j):
 
 def game(matrix):
     from copy import deepcopy
+
     new_matrix = deepcopy(matrix)
     for i in range(matrix.shape[0]):
         for j in range(matrix.shape[1]):
             neighbours = count_neighbours(matrix, i, j)
-            if matrix[i, j]==1 and (neighbours == 2 or neighbours == 3):
+            if matrix[i, j] == 1 and (neighbours == 2 or neighbours == 3):
                 new_matrix[i, j] = 1
-            elif matrix[i, j]==0 and neighbours==3:
+            elif matrix[i, j] == 0 and neighbours == 3:
                 new_matrix[i, j] = 1
             else:
                 new_matrix[i, j] = 0
@@ -42,7 +43,7 @@ def game(matrix):
 
 
 runs = 3
-matrix = np.array([[0,1,0], [0,1,0], [0,1,0]])
+matrix = np.array([[0, 1, 0], [0, 1, 0], [0, 1, 0]])
 pprint(matrix)
 for i in range(runs):
     matrix = game(matrix)
