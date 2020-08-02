@@ -184,7 +184,11 @@ def _update_cell_state(cell, neighbour_list):
     """ neighbour_list = [nw, n, ne, w, e, sw, s, se] """
     neighbours = sum([c.n for c in neighbour_list])
     if cell is not None:
-        new_cell = get_alive() if neighbours == 3 or (cell.n and neighbours == 2) else get_dead()
+        new_cell = (
+            get_alive()
+            if neighbours == 3 or (cell.n and neighbours == 2)
+            else get_dead()
+        )
     else:
         new_cell = get_alive() if neighbours == 3 else get_dead()
     return new_cell
@@ -194,16 +198,8 @@ def _update_cell_state(cell, neighbour_list):
 def _combine(nw, ne, sw, se):
     level = nw.level + 1
     n = nw.n + ne.n + sw.n + se.n
-    hashvalue = id(nw)+id(ne)+id(sw)+id(se)
-    return Node(
-        level=level,
-        nw=nw,
-        ne=ne,
-        sw=sw,
-        se=se,
-        n=n,
-        hashvalue=hashvalue
-    )
+    hashvalue = id(nw) + id(ne) + id(sw) + id(se)
+    return Node(level=level, nw=nw, ne=ne, sw=sw, se=se, n=n, hashvalue=hashvalue)
 
 
 def _zero_node(level):
@@ -211,7 +207,10 @@ def _zero_node(level):
         return get_dead()
     else:
         return _combine(
-            _zero_node(level - 1), _zero_node(level - 1), _zero_node(level - 1), _zero_node(level - 1)
+            _zero_node(level - 1),
+            _zero_node(level - 1),
+            _zero_node(level - 1),
+            _zero_node(level - 1),
         )
 
 

@@ -13,7 +13,7 @@ def read_pattern(filename):
     return positions
 
 
-def plot_points(points):
+def plot_points(points, title="Game of Life"):
     x_max = max([x for x, y in points]) + 5
     y_max = max([y for x, y in points]) + 5
 
@@ -23,7 +23,10 @@ def plot_points(points):
 
     fig, ax = plt.subplots()
     ax.imshow(cmap)
-    return ax
+    ax.set_title(title)
+    output_image_name = "outputs/output.png"
+    plt.savefig(output_image_name, dpi=450)
+    return ax, output_image_name
 
 
 class Node:
@@ -44,11 +47,14 @@ class Node:
     def __repr__(self):
         return f"Node: level-{self.level} ({1<<self.level}x{1<<self.level}), population: {self.n}"
 
+
 _DEAD = Node(level=0, n=0, hashvalue=0)
 _ALIVE = Node(level=0, n=1, hashvalue=1)
 
+
 def get_dead():
     return _DEAD
+
 
 def get_alive():
     return _ALIVE
