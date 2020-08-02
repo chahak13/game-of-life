@@ -13,7 +13,7 @@ def read_pattern(filename):
     return positions
 
 
-def plot_points(points, title="Game of Life"):
+def plot_points(points, title="Game of Life", output_image_name='outputs/output.png'):
     x_max = max([x for x, y in points]) + 5
     y_max = max([y for x, y in points]) + 5
 
@@ -24,7 +24,6 @@ def plot_points(points, title="Game of Life"):
     fig, ax = plt.subplots()
     ax.imshow(cmap)
     ax.set_title(title)
-    output_image_name = "outputs/output.png"
     plt.savefig(output_image_name, dpi=450)
     return ax, output_image_name
 
