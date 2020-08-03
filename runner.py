@@ -13,11 +13,17 @@ parser.add_argument(
     "--iterations",
     type=int,
     required=True,
-    help="Number of iterations to run for the game"
+    help="Number of iterations to run for the game",
 )
 args = vars(parser.parse_args())
 
 if __name__ == "__main__":
-    result = quadlife.play(args["filename"], args["iterations"])
+    pattern, result, all_nodes_points, time_taken = quadlife.play(args["filename"], args["iterations"])
+    print(f'Time taken: {time_taken} seconds')
     output_image_name = f"./outputs/{args['filename'].rsplit('/')[-1].split('.')[0]}_output_{args['iterations']}_iterations.png"
-    ax = plot_points(result, title=f"Life status after {args['iterations']} iterations", output_image_name=output_image_name)
+    ax = plot_points(
+        pattern,
+        result,
+        title=f"Life status after {args['iterations']} iterations",
+        output_image_name=output_image_name,
+    )

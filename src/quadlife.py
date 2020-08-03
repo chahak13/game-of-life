@@ -1,18 +1,19 @@
 from functools import lru_cache
 from .utils import read_pattern, Node, get_dead, get_alive
 import time
+from tqdm import tqdm
 
 
 def play(filename, iterations):
     points, desc = read_pattern(filename)
     root_node = _list_to_tree(points)
     start_t = time.time()
-    result = _play_game(root_node, iterations)
+    result, all_nodes = _play_game(root_node, iterations)
     end_t = time.time()
     time_taken = end_t - start_t
-    # all_nodes_points = [_tree_to_list(node) for node in all_nodes]
+    all_nodes_points = [(_tree_to_list(node), steps) for node, steps in all_nodes]
     result_points = _tree_to_list(result)
-    return points, result_points, time_taken
+    return points, result_points, all_nodes_points, time_taken
 
 
 def _play_game(node, iterations=0):
@@ -27,11 +28,14 @@ def _play_game(node, iterations=0):
     for _ in range(len(iterations_binary)):
         node = _center_node(node)
 
+    all_nodes = [(node, 0)]
     for i, bit in enumerate(iterations_binary):
         if bit:
             steps = len(iterations_binary) - i - 1
             node = _calculate_generations(node, steps)
-    return _clip(node)
+            iterations_done = all_nodes[-1][1] + 2**steps
+            all_nodes.append((_clip(node), iterations_done))
+    return all_nodes[-1][0], all_nodes
 
 
 def _tree_to_list(node, x=0, y=0, level=0):
@@ -72,8 +76,8 @@ def _list_to_tree(points):
             next_level[x >> 1, y >> 1] = _combine(nw, ne, sw, se)
         pattern = next_level
         level += 1
-    return _pad(pattern.popitem()[1])
-
+    result = _pad(pattern.popitem()[1])
+    return result
 
 @lru_cache()
 def _calculate_generations(node, step=None):

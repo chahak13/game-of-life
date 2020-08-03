@@ -59,24 +59,34 @@ def _read_lif(filename):
     return positions, description
 
 def plot_points(pattern, result, title="Game of Life", output_image_name='outputs/output.png'):
-    cmap = np.zeros((200,200))
-    cmap_original = np.zeros((200,200))
+    x_max_pat = max([x for x, y in pattern])
+    y_max_pat = max([y for x, y in pattern])
+    x_max_res = max([x for x, y in result])
+    y_max_res = max([y for x, y in result])
+
+    x_min_pat = min([x for x, y in pattern])
+    y_min_pat = min([y for x, y in pattern])
+    x_min_res = min([x for x, y in result])
+    y_min_res = min([y for x, y in result])
+
+    cmap_res = np.zeros((y_max_res+1, x_max_res+1))
+    cmap_pat = np.zeros((y_max_pat+1, x_max_pat+1))
     for x, y in pattern:
-        cmap_original[y+cmap_original.shape[0]//2, x+cmap_original.shape[1]//2] = 1
+        cmap_pat[y-y_min_pat, x-x_min_pat] = 1
 
     for x, y in result:
-        cmap[y+cmap.shape[0]//2, x+cmap.shape[1]//2] = 1
-
-
-    # from pprint import pprint
-    # pprint(cmap)
+        cmap_res[y-y_min_res, x-x_min_res] = 1
 
     fig, ax = plt.subplots(1, 2)
-    ax[0].imshow(cmap_original)
+    ax[0].imshow(cmap_pat)
     ax[0].set_title("Original")
-    ax[1].imshow(cmap)
+    ax[0].xaxis.set_visible(False)
+    ax[0].yaxis.set_visible(False)
+    ax[1].imshow(cmap_res)
     ax[1].set_title(title)
-    plt.savefig(output_image_name, dpi=450)
+    ax[1].xaxis.set_visible(False)
+    ax[1].yaxis.set_visible(False)
+    plt.savefig(output_image_name, dpi=450, bbox_inches='tight')
     return ax, output_image_name
 
 
@@ -93,10 +103,10 @@ class Node:
         return self.hash
 
     def __str__(self):
-        return f"Node: level-{self.level} ({1<<self.level}x{1<<self.level}), population: {self.n}"
+        return f"Node: level-{self.level} ({1<<self.level}x{1<<self.level}), population: ({self.n})"
 
     def __repr__(self):
-        return f"Node: level-{self.level} ({1<<self.level}x{1<<self.level}), population: {self.n}"
+        return f"Node: level-{self.level} ({1<<self.level}x{1<<self.level}), population: ({self.n})"
 
 
 _DEAD = Node(level=0, n=0, hashvalue=0)
