@@ -5,12 +5,15 @@ import matplotlib.pyplot as plt
 
 def read_pattern(filename):
     root, ext = os.path.splitext(filename)
-    if ext == '.txt':
+    if ext == ".txt":
         return _read_txt(filename)
-    elif ext == '.lif' or ext == '.life':
+    elif ext == ".lif" or ext == ".life":
         return _read_lif(filename)
     else:
-        raise Exception("File type provided as input is not supported. Please provide a .txt or .lif/.life file")
+        raise Exception(
+            "File type provided as input is not supported. Please provide a .txt or .lif/.life file"
+        )
+
 
 def _read_txt(filename):
     with open(filename, "r") as f:
@@ -23,42 +26,51 @@ def _read_txt(filename):
                 positions.append((j, i))
     return positions, description
 
+
 def _read_lif(filename):
-    with open(filename, 'r') as f:
+    with open(filename, "r") as f:
         lines = f.readlines()
 
     description = []
     positions = []
     origin = [0, 0]
+    y = 0
 
     for line in lines:
-        if line[0] == '#':
-            if line.startswith('#Life'):
+        if line[0] == "#":
+            if line.startswith("#Life"):
                 continue
-            elif line[1] == 'D':
+            elif line[1] == "D":
                 if len(description) <= 22:
                     description.append(line[2:].strip())
                 else:
-                    raise Exception("LIF/LIFE file should not have more than 22 #D lines. Please refer https://www.conwaylife.com/wiki/Life_1.05 for more information about the format")
+                    raise Exception(
+                        "LIF/LIFE file should not have more than 22 #D lines. Please refer https://www.conwaylife.com/wiki/Life_1.05 for more information about the format"
+                    )
             elif line[1] == "R":
-                raise Exception("Rules in LIF not supported in this version. The game runs on the standard rules for now.")
+                raise Exception(
+                    "Rules in LIF not supported in this version. The game runs on the standard rules for now."
+                )
             elif line[1] == "P":
                 point_coords = [int(x) for x in line[2:].strip().split()]
-                origin = [-point_coords[0], -point_coords[1]]
-                y = origin[1]
+                origin = point_coords
+                y = 0
             else:
-                raise Exception(f"# should be followed by D/R/P. Found: {line}")
+                continue
         else:
             if len(line) > 0:
                 for x, c in enumerate(line):
-                    if c == '*':
+                    if c == "*":
                         positions.append((x + origin[0], y + origin[1]))
                 y += 1
 
-    description = '\n'.join(description)
+    description = "\n".join(description)
     return positions, description
 
-def plot_points(pattern, result, title="Game of Life", output_image_name='outputs/output.png'):
+
+def plot_points(
+    pattern, result, title="Game of Life", output_image_name="outputs/output.png"
+):
     x_max_pat = max([x for x, y in pattern])
     y_max_pat = max([y for x, y in pattern])
     x_max_res = max([x for x, y in result])
@@ -69,13 +81,13 @@ def plot_points(pattern, result, title="Game of Life", output_image_name='output
     x_min_res = min([x for x, y in result])
     y_min_res = min([y for x, y in result])
 
-    cmap_res = np.zeros((y_max_res+1, x_max_res+1))
-    cmap_pat = np.zeros((y_max_pat+1, x_max_pat+1))
+    cmap_res = np.zeros((y_max_res - y_min_res + 1, x_max_res - x_min_res + 1))
+    cmap_pat = np.zeros((y_max_pat - y_min_pat + 1, x_max_pat - x_min_pat + 1))
     for x, y in pattern:
-        cmap_pat[y-y_min_pat, x-x_min_pat] = 1
+        cmap_pat[y - y_min_pat, x - x_min_pat] = 1
 
     for x, y in result:
-        cmap_res[y-y_min_res, x-x_min_res] = 1
+        cmap_res[y - y_min_res, x - x_min_res] = 1
 
     fig, ax = plt.subplots(1, 2)
     ax[0].imshow(cmap_pat)
@@ -86,7 +98,7 @@ def plot_points(pattern, result, title="Game of Life", output_image_name='output
     ax[1].set_title(title)
     ax[1].xaxis.set_visible(False)
     ax[1].yaxis.set_visible(False)
-    plt.savefig(output_image_name, dpi=450, bbox_inches='tight')
+    plt.savefig(output_image_name, dpi=450, bbox_inches="tight")
     return ax, output_image_name
 
 
