@@ -18,9 +18,15 @@ If the user has Docker installed on their system, they can use docker to build a
  ```
  docker build -t life .
  ```
-2. Run the docker image using a custom pattern file:
+2. Run the docker image:
+    1. Using a custom pattern file:
 ```
 docker run --name life-cont -v </path/to/pattern/file>:/life/patterns/<filename> -it life:latest /bin/bash -c 'python runner.py --filename <filename> --iterations <iterations> && tree outputs'
+```
+    2. Using an inbuilt pattern:
+```
+docker run --name life-cont -it life:latest /bin/bash -c 'python runner.py --filename patterns/<filename> --iterations <iterations> && tree outputs'
+
 ```
 3. Copy the output from the docker container to local filesystem:
 ```
@@ -66,6 +72,9 @@ There is also an experimental support of the [Life 1.05 File Format](https://www
 For more details of this format, please check the [wiki](https://www.conwaylife.com/wiki/Life_1.05)
 
 ## Examples
+There are certain patterns that are provided with the functionality in the patterns folder. The user can use those files directly to generate further generations.
+
+
 A few examples of the 30th and 300th generation of the [Acorn](https://www.conwaylife.com/wiki/Acorn) pattern are:
 
 1. 30th generation:
