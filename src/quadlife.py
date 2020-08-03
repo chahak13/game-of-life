@@ -1,16 +1,17 @@
 from functools import lru_cache
 from .utils import read_pattern, Node, get_dead, get_alive
 import time
-from tqdm import tqdm
 
 
 def play(filename, iterations):
     points, desc = read_pattern(filename)
     root_node = _list_to_tree(points)
+    print("Input:", root_node)
     start_t = time.time()
     result, all_nodes = _play_game(root_node, iterations)
     end_t = time.time()
     time_taken = end_t - start_t
+    print("Output:", result)
     all_nodes_points = [(_tree_to_list(node), steps) for node, steps in all_nodes]
     result_points = _tree_to_list(result)
     return points, result_points, all_nodes_points, time_taken
@@ -79,7 +80,8 @@ def _list_to_tree(points):
     result = _pad(pattern.popitem()[1])
     return result
 
-@lru_cache()
+
+@lru_cache(maxsize=2**20)
 def _calculate_generations(node, step=None):
     step = node.level - 2 if step is None else min(step, node.level - 2)
     if node.n == 0:
@@ -132,7 +134,6 @@ def _calculate_generations(node, step=None):
         return result
 
 
-@lru_cache()
 def _simulate_level_2(node):
     nw = _update_cell_state(
         node.nw.se,
@@ -203,14 +204,14 @@ def _update_cell_state(cell, neighbour_list):
     return new_cell
 
 
-@lru_cache()
+@lru_cache(maxsize=2**20)
 def _combine(nw, ne, sw, se):
     level = nw.level + 1
     n = nw.n + ne.n + sw.n + se.n
     hashvalue = id(nw) + id(ne) + id(sw) + id(se)
     return Node(level=level, nw=nw, ne=ne, sw=sw, se=se, n=n, hashvalue=hashvalue)
 
-
+@lru_cache(maxsize=2**20)
 def _zero_node(level):
     if level == 0:
         return get_dead()
@@ -229,10 +230,10 @@ def _center_node(node):
     """
     z = _zero_node(node.nw.level)
     result = _combine(
-        nw=_combine(z, z, z, node.nw),
-        ne=_combine(z, z, node.ne, z),
-        sw=_combine(z, node.sw, z, z),
-        se=_combine(node.se, z, z, z),
+        _combine(z, z, z, node.nw),
+        _combine(z, z, node.ne, z),
+        _combine(z, node.sw, z, z),
+        _combine(node.se, z, z, z),
     )
     return result
 
