@@ -4,6 +4,8 @@ This is a Python implementation of [Conway's Game of Life](https://en.wikipedia.
 the sum of the steps is equal to the required number of generations. For example, if the user wants to calculate the 29th generation of a given pattern, the algorithm takes steps of sizes 16, 8, 4 and 1 during each calculation. This runs closely with how in the algorithm 2^N × 2^N tiles are run 2^N-2 ticks into the future and then reuses them without re-calculating, by the means of caching. This provides an efficient way to jump to the required number of iterations but has one drawback of not
 being able to store every generation in particular.
 
+For caching purposes, we can simply use a HashMap of pre-computed nodes using a dictionary, but Python provides a nifty tool in its functools package that can be found in the core packages and can be used for caching - [lru_cache](https://docs.python.org/3/library/functools.html#functools.lru_cache). Using this decorator, we can easily cache the values of functions and hence can use direct results instead of computation.
+
 ## Usage
 
 There are two ways in which one can use this program:
@@ -67,8 +69,8 @@ For more details of this format, please check the [wiki](https://www.conwaylife.
 A few examples of the 30th and 300th generation of the [Acorn](https://www.conwaylife.com/wiki/Acorn) pattern are:
 
 1. 30th generation:
-![Image of Yaktocat](https://github.com/chahak13/game-of-life/outputs/test3_output_30_iterations.png)
+![Example output of 30th generation](https://github.com/chahak13/game-of-life/outputs/test3_output_30_iterations.png)
 
 1. 300th generation:
-![Image of Yaktocat](https://github.com/chahak13/game-of-life/outputs/test3_output_300_iterations.png)
+![Example output of 300th generation](https://github.com/chahak13/game-of-life/outputs/test3_output_300_iterations.png)
 
