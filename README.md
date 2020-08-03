@@ -19,11 +19,13 @@ If the user has Docker installed on their system, they can use docker to build a
  docker build -t life .
  ```
 2. Run the docker image:
-    1. Using a custom pattern file:
+    a. Using a custom pattern file:
 ```
 docker run --name life-cont -v </path/to/pattern/file>:/life/patterns/<filename> -it life:latest /bin/bash -c 'python runner.py --filename <filename> --iterations <iterations> && tree outputs'
 ```
-    2. Using an inbuilt pattern:
+
+    b. Using an inbuilt pattern:
+
 ```
 docker run --name life-cont -it life:latest /bin/bash -c 'python runner.py --filename patterns/<filename> --iterations <iterations> && tree outputs'
 
