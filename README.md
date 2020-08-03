@@ -1,5 +1,4 @@
 # Game of Life
-----
 
 This is a Python implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) using the Hashlife algorithm. The idea of the algorithm is to store subpatterns in a hash table so that the results of their evolution don't have to be recomputed if they arise again at another place or time. This implementation calculates the required number of generations by taking steps of sizes that are a power of two. These steps are taken in such a way, that
 the sum of the steps is equal to the required number of generations. For example, if the user wants to calculate the 29th generation of a given pattern, the algorithm takes steps of sizes 16, 8, 4 and 1 during each calculation. This runs closely with how in the algorithm 2^N × 2^N tiles are run 2^N-2 ticks into the future and then reuses them without re-calculating, by the means of caching. This provides an efficient way to jump to the required number of iterations but has one drawback of not
@@ -63,3 +62,13 @@ There is also an experimental support of the [Life 1.05 File Format](https://www
 ```
 
 For more details of this format, please check the [wiki](https://www.conwaylife.com/wiki/Life_1.05)
+
+## Examples
+A few examples of the 30th and 300th generation of the [Acorn](https://www.conwaylife.com/wiki/Acorn) pattern are:
+
+1. 30th generation:
+![Image of Yaktocat](https://github.com/chahak13/game-of-life/outputs/test3_output_30_iterations.png)
+
+1. 300th generation:
+![Image of Yaktocat](https://github.com/chahak13/game-of-life/outputs/test3_output_300_iterations.png)
+
