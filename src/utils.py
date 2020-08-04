@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import colors
 
 
 def read_pattern(filename):
@@ -81,20 +82,23 @@ def plot_points(
     x_min_res = min([x for x, y in result])
     y_min_res = min([y for x, y in result])
 
-    cmap_res = np.zeros((y_max_res - y_min_res + 1, x_max_res - x_min_res + 1))
-    cmap_pat = np.zeros((y_max_pat - y_min_pat + 1, x_max_pat - x_min_pat + 1))
+    cmap_res = np.zeros((y_max_res - y_min_res + 3, x_max_res - x_min_res + 3))
+    cmap_pat = np.zeros((y_max_pat - y_min_pat + 3, x_max_pat - x_min_pat + 3))
     for x, y in pattern:
-        cmap_pat[y - y_min_pat, x - x_min_pat] = 1
+        cmap_pat[y - y_min_pat + 1, x - x_min_pat + 1] = 1
 
     for x, y in result:
-        cmap_res[y - y_min_res, x - x_min_res] = 1
+        cmap_res[y - y_min_res + 1, x - x_min_res + 1] = 1
 
+    cmap = plt.get_cmap('viridis')
+    bounds=[0, 0.5, 1]
+    norm = colors.BoundaryNorm(bounds, cmap.N)
     fig, ax = plt.subplots(1, 2)
-    ax[0].imshow(cmap_pat)
+    ax[0].imshow(cmap_pat, cmap=cmap, norm=norm)
     ax[0].set_title("Original")
     ax[0].xaxis.set_visible(False)
     ax[0].yaxis.set_visible(False)
-    ax[1].imshow(cmap_res)
+    ax[1].imshow(cmap_res, cmap=cmap, norm=norm)
     ax[1].set_title(title)
     ax[1].xaxis.set_visible(False)
     ax[1].yaxis.set_visible(False)

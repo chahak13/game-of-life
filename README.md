@@ -80,8 +80,8 @@ There are certain patterns that are provided with the functionality in the patte
 A few examples of the 30th and 300th generation of the [Acorn](https://www.conwaylife.com/wiki/Acorn) pattern are:
 
 1. 30th generation:
-![Example output of 30th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/test3_output_30_iterations.png)
+![Example output of 30th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/acorn_output_30_iterations.png)
 
 1. 300th generation:
-![Example output of 300th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/test3_output_300_iterations.png)
+![Example output of 300th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/acorn_output_300_iterations.png)
 
