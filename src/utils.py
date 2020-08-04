@@ -72,6 +72,7 @@ def _read_lif(filename):
 def plot_points(
     pattern, result, title="Game of Life", output_image_name="outputs/output.png"
 ):
+    print("Generating initial state and result in an image...")
     if len(result) == 0:
         raise Exception("Cannot plot the result as the pattern has died out. Please try with fewer iterations")
     x_max_pat = max([x for x, y in pattern])
@@ -119,6 +120,7 @@ def plot_points(
     ax[1].tick_params(axis='y', left=False, labelleft=False)
 
     plt.savefig(output_image_name, dpi=450, bbox_inches="tight")
+    print(f"Plot created and saved at {output_image_name}")
     return ax, output_image_name
 
 
