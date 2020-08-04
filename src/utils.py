@@ -92,18 +92,32 @@ def plot_points(
     for x, y in result:
         cmap_res[y - y_min_res + 1, x - x_min_res + 1] = 1
 
-    cmap = plt.get_cmap('viridis')
+    # cmap = plt.get_cmap('viridis')
+    cmap = colors.ListedColormap(['white', 'red'])
     bounds=[0, 0.5, 1]
     norm = colors.BoundaryNorm(bounds, cmap.N)
-    fig, ax = plt.subplots(1, 2)
+    fig, ax = plt.subplots(1, 2, figsize=(50, 50))
+
     ax[0].imshow(cmap_pat, cmap=cmap, norm=norm)
     ax[0].set_title("Original")
-    ax[0].xaxis.set_visible(False)
-    ax[0].yaxis.set_visible(False)
+    ax[0].set_xticks(np.arange(0.5, cmap_pat.shape[1]))
+    ax[0].set_xticklabels(['']*len(ax[0].get_xticks()))
+    ax[0].set_yticks(np.arange(0.5, cmap_pat.shape[0]))
+    ax[0].set_yticklabels(['']*len(ax[0].get_yticks()))
+    ax[0].grid(linewidth=0.25, color='k', alpha=0.3)
+    ax[0].tick_params(axis='x', bottom=False, labelbottom=False)
+    ax[0].tick_params(axis='y', left=False, labelleft=False)
+
     ax[1].imshow(cmap_res, cmap=cmap, norm=norm)
     ax[1].set_title(title)
-    ax[1].xaxis.set_visible(False)
-    ax[1].yaxis.set_visible(False)
+    ax[1].set_xticks(np.arange(0.5, cmap_res.shape[1]))
+    ax[1].set_xticklabels(['']*len(ax[1].get_xticks()))
+    ax[1].set_yticks(np.arange(0.5, cmap_res.shape[0]))
+    ax[1].set_yticklabels(['']*len(ax[1].get_yticks()))
+    ax[1].grid(linewidth=0.25, color='k', alpha=0.3)
+    ax[1].tick_params(axis='x', bottom=False, labelbottom=False)
+    ax[1].tick_params(axis='y', left=False, labelleft=False)
+
     plt.savefig(output_image_name, dpi=450, bbox_inches="tight")
     return ax, output_image_name
 
