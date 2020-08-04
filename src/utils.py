@@ -97,7 +97,7 @@ def plot_points(
     cmap = colors.ListedColormap(['white', 'red'])
     bounds=[0, 0.5, 1]
     norm = colors.BoundaryNorm(bounds, cmap.N)
-    fig, ax = plt.subplots(1, 2, figsize=(50, 50))
+    fig, ax = plt.subplots(1, 2, figsize=(25, 25))
 
     ax[0].imshow(cmap_pat, cmap=cmap, norm=norm)
     ax[0].set_title("Original", fontsize=30)
