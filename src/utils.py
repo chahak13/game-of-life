@@ -23,7 +23,7 @@ def _read_txt(filename):
     positions = []
     for i, line in enumerate(lines):
         for j, c in enumerate(line):
-            if c == "1" or char == "*":
+            if c == "1" or c == "*":
                 positions.append((j, i))
     return positions, description
 
