@@ -72,6 +72,8 @@ def _read_lif(filename):
 def plot_points(
     pattern, result, title="Game of Life", output_image_name="outputs/output.png"
 ):
+    if len(result) == 0:
+        raise Exception("Cannot plot the result as the pattern has died out. Please try with fewer iterations")
     x_max_pat = max([x for x, y in pattern])
     y_max_pat = max([y for x, y in pattern])
     x_max_res = max([x for x, y in result])

@@ -40,7 +40,7 @@ docker cp life-cont:/life/outputs/<output image name>
 1. Create a Python virtual environment using `python -m venv env` and activate the environment using `source env/bin/activate`.
 2. Install the dependencies via `pip install -r requirements.txt`
 3. Create a pattern file using either simple textfile or the .lif [Life 1.05 file format](https://www.conwaylife.com/wiki/Life_1.05)
-4. Run the code using `python runner.py --filename <path/to/pattern/file> --iterations <iterations>`
+4. Run the code using `python runner.py --filename <path/to/pattern/file> --iterations <iterations>`. If the user wants to run a pre-existing pattern file, they can give a file in the `patterns/` folder as an argument.
 5. The output will be stored in the `outputs/` folder with the name `<pattern file name>_output_<iterations>_iterations.png`
 
 
@@ -83,8 +83,8 @@ There are certain patterns that are provided with the functionality in the patte
 A few examples of the 30th and 300th generation of the [Acorn](https://www.conwaylife.com/wiki/Acorn) pattern are below. The outputs folder also contains examples for 30th and 300th generation of [Breeder](https://conwaylife.com/wiki/Breeder_1). 
 
 1. 30th generation:
-![Example output of 30th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/acorn_output_30_iterations.png)
+![Example output of 30th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/examples/acorn_output_30_iterations.png)
 
 1. 300th generation:
-![Example output of 300th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/acorn_output_300_iterations.png)
+![Example output of 300th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/examples/acorn_output_300_iterations.png)
 
