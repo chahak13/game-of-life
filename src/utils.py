@@ -99,7 +99,7 @@ def plot_points(
     fig, ax = plt.subplots(1, 2, figsize=(50, 50))
 
     ax[0].imshow(cmap_pat, cmap=cmap, norm=norm)
-    ax[0].set_title("Original")
+    ax[0].set_title("Original", fontsize=30)
     ax[0].set_xticks(np.arange(0.5, cmap_pat.shape[1]))
     ax[0].set_xticklabels(['']*len(ax[0].get_xticks()))
     ax[0].set_yticks(np.arange(0.5, cmap_pat.shape[0]))
@@ -109,7 +109,7 @@ def plot_points(
     ax[0].tick_params(axis='y', left=False, labelleft=False)
 
     ax[1].imshow(cmap_res, cmap=cmap, norm=norm)
-    ax[1].set_title(title)
+    ax[1].set_title(title, fontsize=30)
     ax[1].set_xticks(np.arange(0.5, cmap_res.shape[1]))
     ax[1].set_xticklabels(['']*len(ax[1].get_xticks()))
     ax[1].set_yticks(np.arange(0.5, cmap_res.shape[0]))
