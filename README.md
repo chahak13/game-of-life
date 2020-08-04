@@ -43,13 +43,16 @@ docker cp life-cont:/life/outputs/<output image name>
 4. Run the code using `python runner.py --filename <path/to/pattern/file> --iterations <iterations>`
 5. The output will be stored in the `outputs/` folder with the name `<pattern file name>_output_<iterations>_iterations.png`
 
+
+**The output images are made using a color map where 0 corresponds to the purple color and 1 corresponds to yellow.**
+
 ## Pattern Files
 
 There are two pattern file formats supported currently:
 
 ### 1. Standard text file
 
-A standard text file that contains the pattern in it. For example, the content of `pattern.txt` should be:
+A standard text file that contains the pattern in it. The pattern can be of any form and doesn't need to be a square particularly. `1` or `*` in the pattern denotes a live cell, any other character denotes a dead cell. For example, the content of `pattern.txt` should be:
 ```
 --1----
 ----1--
@@ -59,7 +62,7 @@ A standard text file that contains the pattern in it. For example, the content o
 
 ### 2. Life 1.05 File format
 
-There is also an experimental support of the [Life 1.05 File Format](https://www.conwaylife.com/wiki/Life_1.05) which is used to create large patterns. The parser follows strict rules of the format as described in the wiki and doesn't support custom rules as of now. An example file of this format is:
+There is also an experimental support of the [Life 1.05 File Format](https://www.conwaylife.com/wiki/Life_1.05) which is used to create large patterns. The parser follows strict format as described in the wiki and doesn't support custom rules as of now. `1` or `*` in the pattern denotes a live cell, any other character denotes a dead cell. An example file of this format is:
 
 ```
 #Life 1.05
@@ -77,7 +80,7 @@ For more details of this format, please check the [wiki](https://www.conwaylife.
 There are certain patterns that are provided with the functionality in the patterns folder. The user can use those files directly to generate further generations.
 
 
-A few examples of the 30th and 300th generation of the [Acorn](https://www.conwaylife.com/wiki/Acorn) pattern are:
+A few examples of the 30th and 300th generation of the [Acorn](https://www.conwaylife.com/wiki/Acorn) pattern are below. The outputs folder also contains examples for 30th and 300th generation of [Breeder](https://conwaylife.com/wiki/Breeder_1). 
 
 1. 30th generation:
 ![Example output of 30th generation](https://github.com/chahak13/game-of-life/blob/master/outputs/acorn_output_30_iterations.png)

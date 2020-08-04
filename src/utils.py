@@ -22,8 +22,8 @@ def _read_txt(filename):
     description = []
     positions = []
     for i, line in enumerate(lines):
-        for j, char in enumerate(line):
-            if char == "1":
+        for j, c in enumerate(line):
+            if c == "1" or char == "*":
                 positions.append((j, i))
     return positions, description
 
@@ -61,7 +61,7 @@ def _read_lif(filename):
         else:
             if len(line) > 0:
                 for x, c in enumerate(line):
-                    if c == "*":
+                    if c == "1" or c == "*":
                         positions.append((x + origin[0], y + origin[1]))
                 y += 1
 
