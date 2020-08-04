@@ -44,7 +44,7 @@ docker cp life-cont:/life/outputs/<output image name>
 5. The output will be stored in the `outputs/` folder with the name `<pattern file name>_output_<iterations>_iterations.png`
 
 
-**The output images are made using a color map where a dead cell corresponds to the purple color and an alive cell corresponds to yellow.**
+**The output images are made using a color map where a dead cell corresponds to the white color and an alive cell corresponds to red.**
 
 ## Pattern Files
 
